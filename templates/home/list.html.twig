@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+<h3 class="home-title"> {{ categoryName.name }} </h3>
+
+    {% for post in pagination %}
+        <div class="row my-3 px-4">
+            <div class="col-12">
+                <a href="{{ path('home_post_show', {'id': post.id, 'category_id': null}) }}" class="post-title">{{ post.title }}</a>
+                <div class="post-date">{{ post.createdAt ? post.createdAt|date('Y-m-d') : '' }}</div>
+                <div class="post-content">
+                    {% if post.description|length > 500 %}
+                        {{ post.description[:500] }} ...
+                    {% else %}
+                        {{ post.description }}
+                    {% endif %}
+                    
+                </div>
+                <div class="post-author float-right">{{ post.author }}</div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="row my-3 px-4">
+        <div class="col-12">
+            <em>Total articles: {{ pagination.getTotalItemCount }}</em>
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+
+{% endblock %}

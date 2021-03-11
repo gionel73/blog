@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+    <h3 class="home-title">Recent Articles</h3>
+
+    {% for post in posts %}
+    <div class="row my-3 px-4">
+        <div class="col-12">
+            <a href="{{ path('home_post_show', {'id': post.id, 'category_id': null}) }}" class="post-title">{{ post.title }}</a>
+            <div class="post-date mb-3">{{ post.createdAt ? post.createdAt|date('Y-m-d') : '' }}</div>
+            <div class="post-content">
+                {% if post.description|length > 250 %}
+                    {{ post.description[:250] }} ...
+                {% else %}
+                    {{ post.description }}
+                {% endif %}
+                
+            </div>
+            <div class="post-author">
+                <span class="">Category: {{ post.category.name }}</span>
+                <span class=" float-right">{{ post.author }}</span>
+            </div>
+            
+        </div>
+    </div>
+    {% endfor %}
+
+{% endblock %}
