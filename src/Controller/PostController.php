@@ -41,9 +41,11 @@ class PostController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         
         $post = new Post();
+        $post->setCategory($this->getDoctrine()->getRepository(Category::class)->findOneBy(['id' => $category_id])); 
+
         $categories = $this->getDoctrine()
             ->getRepository(Category::class)
-            ->findAll();
+            ->findAll();        
 
         $form = $this->createForm(PostType::class, $post, ['categories' => $categories]);
         $form->handleRequest($request);
