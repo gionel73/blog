@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-12">
+            <a class="btn btn-info my-2 float-right" href="{{ app.request.headers.get('referer') }}">Back</a>
+        </div>
+    </div>
+    
+    <a href="{{ path('home_post_show', {'id': post.id, 'category_id': post.category.id}) }}" class="post-title">{{ post.title }}</a>
+    <div class="post-date">{{ post.createdAt ? post.createdAt|date('Y-m-d') : '' }}</div>
+    <div class="post-content">{{ post.description }}</div>
+    <div class="post-author float-right">{{ post.author }}</div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+    <h3 class="my-3 home-title">{{ categoryName.name }}
+        <a class="btn btn-info float-right" href="{{ path('post_new', {'category_id': category_id}) }}">Create new</a>
+    </h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:50px">Id</th>
+                <th style="min-width:150px">Title</th>
+                <th>Description</th>
+                <th>Author</th>
+                <th style="width:110px">Created</th>
+                <th style="width:50px">Published</th>
+                <th style="width:140px">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.title }}</td>
+                <td>
+                    {% if post.description|length > 300 %}
+                        {{ post.description[:300] }} ...
+                    {% else %}
+                        {{ post.description }}
+                    {% endif %}   
+                </td>
+                <td>{{ post.author }}</td>
+                <td>{{ post.createdAt ? post.createdAt|date('Y-m-d') : '' }}</td>
+                <td>{{ post.status ? '<b style="color:green">Yes</b>' : '<b style="color:red">No</b>' }}</td>
+                <td>
+                    <a class="btn btn-sm btn-success" href="{{ path('post_show', {'id': post.id, 'category_id': category_id}) }}">Show</a>
+                    <a class="btn btn-sm btn-primary" href="{{ path('post_edit', {'id': post.id, 'category_id': category_id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8" class="text-center">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
