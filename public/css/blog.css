@@ -85,3 +85,11 @@
   font-size: 14px;
   margin-top: 3px;
 }
+.page-item .page-link {
+  color: #9b13b3 ;
+}
+.page-item.active .page-link {
+  color: #fff;
+  background-color: #9b13b3;
+  border-color: #9b13b3;
+}
